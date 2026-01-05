@@ -1,0 +1,11 @@
+.godot/
+.import/
+
+*.pck
+*.zip
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
