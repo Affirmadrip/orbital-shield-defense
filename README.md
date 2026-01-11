@@ -44,6 +44,6 @@
     - Play Again
     - Main Menu
 - Game Over (แพ้)
-    - ถ้าแพ้เพราะ HP ของ Barrier เหลือ 0 = Barrier Destroyed และถ้าแพ้เพราะเวลาหมดแล้วคะแนนไม่ถึง = Time Up 
+    - ถ้าแพ้เพราะ HP ของ Barrier เหลือ 0 = Barrier Destroyed หรือถ้าแพ้เพราะเวลาหมดแล้วคะแนนไม่ถึง = Time Up 
     - Retry
     - Main Menu
