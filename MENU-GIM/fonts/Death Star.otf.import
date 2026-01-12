@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://bcxfujs30o0yj"
-path="res://.godot/imported/Death Star.otf-d9659b81fd1c646987cca0e021cc2c1a.fontdata"
+path="res://.godot/imported/Death Star.otf-a1ab9c618b13f84de83eeb7e8b2f2e80.fontdata"
 
 [deps]
 
-source_file="res://Death Star.otf"
-dest_files=["res://.godot/imported/Death Star.otf-d9659b81fd1c646987cca0e021cc2c1a.fontdata"]
+source_file="res://fonts/Death Star.otf"
+dest_files=["res://.godot/imported/Death Star.otf-a1ab9c618b13f84de83eeb7e8b2f2e80.fontdata"]
 
 [params]
 
