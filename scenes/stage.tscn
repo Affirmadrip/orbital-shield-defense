@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://cmvq5kt4ay345"]
+
+[ext_resource type="Script" uid="uid://xc8hqe4vhw4a" path="res://scripts/stage.gd" id="1_gi7kc"]
+[ext_resource type="PackedScene" uid="uid://cpieuoc22whp5" path="res://scenes/alien.tscn" id="2_kewym"]
+[ext_resource type="Texture2D" uid="uid://cspicqwmjsuwg" path="res://art/background_stage.jpg" id="3_6c5u0"]
+[ext_resource type="Texture2D" uid="uid://ck3ve4nuhibu6" path="res://art/blue_planet.png" id="4_vcsse"]
+[ext_resource type="Texture2D" uid="uid://dk2u11c8pyjh8" path="res://art/barrier_ring.png" id="5_vcsse"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gi7kc"]
+radius = 112.23
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kewym"]
+bg_color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6c5u0"]
+bg_color = Color(6.016344e-07, 0.6800247, 0.14259261, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Stage" type="Node2D" groups=["stage"]]
+script = ExtResource("1_gi7kc")
+alien_scene = ExtResource("2_kewym")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(576, 324)
+texture = ExtResource("3_6c5u0")
+
+[node name="Planet" type="Sprite2D" parent="."]
+position = Vector2(583, 314)
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("4_vcsse")
+
+[node name="Barrier" type="Area2D" parent="." groups=["barrier"]]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier"]
+shape = SubResource("CircleShape2D_gi7kc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Barrier"]
+z_index = 1
+position = Vector2(5.005, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_vcsse")
+
+[node name="Aliens" type="Node2D" parent="."]
+z_index = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HPLabel" type="Label" parent="UI"]
+offset_left = 29.0
+offset_top = 18.0
+offset_right = 110.0
+offset_bottom = 41.0
+text = "Barrier HP"
+
+[node name="HPBar" type="ProgressBar" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 44.0
+theme_override_styles/background = SubResource("StyleBoxFlat_kewym")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6c5u0")
+max_value = 300.0
+value = 300.0
+show_percentage = false
+
+[node name="Center" type="Marker2D" parent="."]
+position = Vector2(581, 316)
+
+[connection signal="area_entered" from="Barrier" to="." method="_on_barrier_area_entered"]
