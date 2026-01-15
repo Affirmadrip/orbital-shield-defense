@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmvq5kt4ay345"]
+[gd_scene load_steps=10 format=3 uid="uid://cmvq5kt4ay345"]
 
 [ext_resource type="Script" uid="uid://xc8hqe4vhw4a" path="res://scripts/stage.gd" id="1_gi7kc"]
 [ext_resource type="PackedScene" uid="uid://cpieuoc22whp5" path="res://scenes/alien.tscn" id="2_kewym"]
-[ext_resource type="Texture2D" uid="uid://cspicqwmjsuwg" path="res://art/background_stage.jpg" id="3_6c5u0"]
-[ext_resource type="Texture2D" uid="uid://ck3ve4nuhibu6" path="res://art/blue_planet.png" id="4_vcsse"]
-[ext_resource type="Texture2D" uid="uid://dk2u11c8pyjh8" path="res://art/barrier_ring.png" id="5_vcsse"]
+[ext_resource type="Texture2D" uid="uid://c511g31eyca0" path="res://art/background_stage.jpg" id="3_6c5u0"]
+[ext_resource type="Texture2D" uid="uid://52r4h4ftbux" path="res://art/blue_planet.png" id="4_vcsse"]
+[ext_resource type="Texture2D" uid="uid://bb63e8j77ko0r" path="res://art/barrier_ring.png" id="5_vcsse"]
+[ext_resource type="Script" uid="uid://c8q75s4icx13q" path="res://scenes/pause_menu.gd" id="6_2so7o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gi7kc"]
 radius = 112.23
@@ -75,4 +76,51 @@ show_percentage = false
 [node name="Center" type="Marker2D" parent="."]
 position = Vector2(581, 316)
 
+[node name="PauseMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_2so7o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 427.0
+offset_top = 111.0
+offset_right = 705.0
+offset_bottom = 467.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PauseLabel" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 72
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "RESUME"
+
+[node name="RestartButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "RESTART"
+
+[node name="MainmenuButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MAIN MENU"
+
 [connection signal="area_entered" from="Barrier" to="." method="_on_barrier_area_entered"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="PauseMenu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/MainmenuButton" to="PauseMenu" method="_on_mainmenu_button_pressed"]
