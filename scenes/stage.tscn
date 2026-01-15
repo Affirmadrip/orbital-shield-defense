@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cmvq5kt4ay345"]
 
-[ext_resource type="Texture2D" uid="uid://5hjj1v50edk1" path="res://art/blue-planet.png" id="1_8rem4"]
 [ext_resource type="Script" uid="uid://xc8hqe4vhw4a" path="res://scripts/stage.gd" id="1_gi7kc"]
 [ext_resource type="PackedScene" uid="uid://cpieuoc22whp5" path="res://scenes/alien.tscn" id="2_kewym"]
-[ext_resource type="Texture2D" uid="uid://brldclgrgx5hv" path="res://art/space.jpg" id="3_6c5u0"]
-[ext_resource type="Texture2D" uid="uid://d0bdr4c2fwhin" path="res://art/barrier_ring.png" id="5_vcsse"]
+[ext_resource type="Texture2D" uid="uid://cspicqwmjsuwg" path="res://art/space.jpg" id="3_6c5u0"]
+[ext_resource type="Texture2D" uid="uid://k1or0vemdqe6" path="res://art/blue_planet.png" id="4_vcsse"]
+[ext_resource type="Texture2D" uid="uid://dk2u11c8pyjh8" path="res://art/barrier_ring.png" id="5_vcsse"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gi7kc"]
 radius = 112.23
@@ -35,7 +35,7 @@ texture = ExtResource("3_6c5u0")
 [node name="Planet" type="Sprite2D" parent="."]
 position = Vector2(583, 314)
 scale = Vector2(0.04, 0.04)
-texture = ExtResource("1_8rem4")
+texture = ExtResource("4_vcsse")
 
 [node name="Barrier" type="Area2D" parent="." groups=["barrier"]]
 collision_mask = 2
