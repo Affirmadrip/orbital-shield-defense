@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://xc8hqe4vhw4a" path="res://scripts/stage.gd" id="1_gi7kc"]
 [ext_resource type="PackedScene" uid="uid://cpieuoc22whp5" path="res://scenes/alien.tscn" id="2_kewym"]
-[ext_resource type="Texture2D" uid="uid://c511g31eyca0" path="res://art/background_stage.jpg" id="3_6c5u0"]
-[ext_resource type="Texture2D" uid="uid://52r4h4ftbux" path="res://art/blue_planet.png" id="4_vcsse"]
+[ext_resource type="Texture2D" uid="uid://d1o4hpl6rnofx" path="res://art/Bg/Sprite-0007.png" id="3_2so7o"]
+[ext_resource type="Texture2D" uid="uid://bermp71sqrf1n" path="res://art/Player/Planet.png" id="4_st0q7"]
 [ext_resource type="Texture2D" uid="uid://bb63e8j77ko0r" path="res://art/barrier_ring.png" id="5_vcsse"]
 [ext_resource type="Script" uid="uid://c8q75s4icx13q" path="res://scripts/pause_menu.gd" id="6_2so7o"]
 
@@ -29,16 +29,18 @@ script = ExtResource("1_gi7kc")
 alien_scene = ExtResource("2_kewym")
 
 [node name="Background" type="Sprite2D" parent="."]
-z_index = -100
-position = Vector2(576, 324)
-texture = ExtResource("3_6c5u0")
+position = Vector2(576.5, 322.99997)
+scale = Vector2(1.7953126, 1.9117645)
+texture = ExtResource("3_2so7o")
 
 [node name="Planet" type="Sprite2D" parent="."]
-position = Vector2(583, 314)
-scale = Vector2(0.04, 0.04)
-texture = ExtResource("4_vcsse")
+position = Vector2(570, 315.00003)
+scale = Vector2(8.2109375, 7.953126)
+texture = ExtResource("4_st0q7")
 
 [node name="Barrier" type="Area2D" parent="." groups=["barrier"]]
+visible = false
+position = Vector2(583, 319)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier"]
@@ -77,6 +79,7 @@ show_percentage = false
 position = Vector2(581, 316)
 
 [node name="PauseMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
