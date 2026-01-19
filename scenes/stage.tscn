@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmvq5kt4ay345"]
+[gd_scene load_steps=11 format=3 uid="uid://cmvq5kt4ay345"]
 
 [ext_resource type="Script" uid="uid://xc8hqe4vhw4a" path="res://scripts/stage.gd" id="1_gi7kc"]
 [ext_resource type="PackedScene" uid="uid://cpieuoc22whp5" path="res://scenes/alien.tscn" id="2_kewym"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bermp71sqrf1n" path="res://art/Player/Planet.png" id="4_st0q7"]
 [ext_resource type="Texture2D" uid="uid://bb63e8j77ko0r" path="res://art/barrier_ring.png" id="5_vcsse"]
 [ext_resource type="Script" uid="uid://c8q75s4icx13q" path="res://scripts/pause_menu.gd" id="6_2so7o"]
+[ext_resource type="PackedScene" uid="uid://cgapopaqviqdm" path="res://scenes/player.tscn" id="7_st0q7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gi7kc"]
 radius = 112.23
@@ -34,8 +35,8 @@ scale = Vector2(1.7953126, 1.9117645)
 texture = ExtResource("3_2so7o")
 
 [node name="Planet" type="Sprite2D" parent="."]
-position = Vector2(570, 315.00003)
-scale = Vector2(8.2109375, 7.953126)
+position = Vector2(582, 314)
+scale = Vector2(5.687682, 5.687682)
 texture = ExtResource("4_st0q7")
 
 [node name="Barrier" type="Area2D" parent="." groups=["barrier"]]
@@ -122,6 +123,10 @@ text = "RESTART"
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
+
+[node name="Player" parent="." node_paths=PackedStringArray("center_node") instance=ExtResource("7_st0q7")]
+position = Vector2(631, 465)
+center_node = NodePath("../Planet")
 
 [connection signal="area_entered" from="Barrier" to="." method="_on_barrier_area_entered"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
