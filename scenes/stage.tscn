@@ -123,6 +123,120 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
+[node name="Game Over" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Game Over"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 396.0
+offset_top = 143.0
+offset_right = 809.0
+offset_bottom = 499.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="GameOver" type="Label" parent="Game Over/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 72
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="Game Over/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "RETRY"
+
+[node name="MainmenuButton" type="Button" parent="Game Over/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MAIN MENU"
+
+[node name="Clear Stage 1" type="Panel" parent="."]
+visible = false
+offset_top = -2.0
+offset_right = 40.0
+offset_bottom = 38.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Clear Stage 1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 377.0
+offset_top = 124.0
+offset_right = 790.0
+offset_bottom = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="SCORE" type="Label" parent="Clear Stage 1/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 72
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="NextStageButton" type="Button" parent="Clear Stage 1/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "NEXT STAGE"
+
+[node name="MainmenuButton" type="Button" parent="Clear Stage 1/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MAIN MENU"
+
+[node name="Clear Stage 2" type="Panel" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Clear Stage 2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 377.0
+offset_top = 124.0
+offset_right = 790.0
+offset_bottom = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="SCORE" type="Label" parent="Clear Stage 2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 72
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="Clear Stage 2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "PLAY AGAIN"
+
+[node name="MainmenuButton" type="Button" parent="Clear Stage 2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "MAIN MENU"
+
 [connection signal="area_entered" from="Barrier" to="." method="_on_barrier_area_entered"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="PauseMenu" method="_on_restart_button_pressed"]
