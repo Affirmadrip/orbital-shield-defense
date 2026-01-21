@@ -27,7 +27,6 @@ var hp: int = 1
 func _ready() -> void:
 	_apply_type_stats()
 
-
 func set_target(pos: Vector2) -> void:
 	target_pos = pos
 
