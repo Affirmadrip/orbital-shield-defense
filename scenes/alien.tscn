@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpieuoc22whp5"]
 
-[ext_resource type="Texture2D" uid="uid://cvocpbipdj8go" path="res://art/alien_red.png" id="1_h100l"]
 [ext_resource type="Script" uid="uid://bohfi0a7o7v7v" path="res://scripts/alien.gd" id="1_u8rjw"]
-[ext_resource type="Texture2D" uid="uid://cmlf7pfn3uf0r" path="res://art/alien_purple.png" id="3_np108"]
-[ext_resource type="Texture2D" uid="uid://cieexpvpoudde" path="res://art/alien_grey.png" id="4_vxp04"]
+[ext_resource type="Texture2D" uid="uid://b3ukjsv84v1fn" path="res://art/enemy_ship.png" id="2_vxp04"]
+[ext_resource type="Texture2D" uid="uid://bx8f1utkgg01g" path="res://art/enemy_ship_2.png" id="3_kufd8"]
+[ext_resource type="Texture2D" uid="uid://bh0qykjdvdpq7" path="res://art/enemy_ship_3.png" id="4_g58bj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ka4i"]
 radius = 39.26
@@ -12,13 +12,12 @@ radius = 39.26
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_u8rjw")
-tex_red = ExtResource("1_h100l")
-tex_purple = ExtResource("3_np108")
-tex_grey = ExtResource("4_vxp04")
+tex_red = ExtResource("2_vxp04")
+tex_purple = ExtResource("3_kufd8")
+tex_grey = ExtResource("4_g58bj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_h100l")
+texture = ExtResource("2_vxp04")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6ka4i")

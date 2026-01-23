@@ -46,21 +46,21 @@ func _apply_type_stats() -> void:
 			speed = 140.0
 			damage_to_barrier = 3
 			max_hp = 10
-			sprite.scale = Vector2(0.1, 0.1)
+			sprite.scale = Vector2(3, 3)
 
 		AlienType.PURPLE:
 			sprite.texture = tex_purple
 			speed = 115.0
 			damage_to_barrier = 7
 			max_hp = 25
-			sprite.scale = Vector2(0.15, 0.15)
+			sprite.scale = Vector2(5, 5)
 
 		AlienType.GREY:
 			sprite.texture = tex_grey
 			speed = 95.0
 			damage_to_barrier = 15
 			max_hp = 60
-			sprite.scale = Vector2(0.2, 0.2)
+			sprite.scale = Vector2(8, 8)
 
 	hp = max_hp
 
