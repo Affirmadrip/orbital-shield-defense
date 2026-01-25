@@ -17,6 +17,8 @@ extends Node2D
 @onready var aliens_container: Node2D = $Aliens
 @onready var hp_label: Label = $UI/HPLabel
 @onready var hp_bar: ProgressBar = $UI/HPBar 
+@onready var timer_label: Label = $UI/TimerLabel
+@onready var stage_label: Label = $UI/StageLabel
 
 var barrier_hp: int
 var elapsed: float = 0.0
@@ -37,6 +39,7 @@ func _ready() -> void:
 
 	barrier_hp = barrier_max_hp
 	_update_hp_ui()
+	_update_stage_ui()
 
 	if stage_number == 1:
 		spawn_interval = spawn_interval_stage1
@@ -48,6 +51,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	elapsed += delta
+	_update_timer_ui()
 	_spawn_greys_if_needed()
 	_spawn_red_or_purple(delta)
 
@@ -114,6 +118,14 @@ func _update_hp_ui() -> void:
 	hp_bar.max_value = barrier_max_hp
 	hp_bar.value = barrier_hp
 
+func _update_timer_ui() -> void:
+	if timer_label:
+		var time_left = max(0.0, stage_duration - elapsed)
+		timer_label.text = "%d" % ceil(time_left)
+
+func _update_stage_ui() -> void:
+	if stage_label:
+		stage_label.text = "STAGE " + str(stage_number)
 
 func _on_barrier_area_entered(area: Area2D) -> void:
 	if area is Alien:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cmvq5kt4ay345"]
+[gd_scene load_steps=13 format=3 uid="uid://cmvq5kt4ay345"]
 
 [ext_resource type="Script" uid="uid://xc8hqe4vhw4a" path="res://scripts/stage.gd" id="1_gi7kc"]
 [ext_resource type="PackedScene" uid="uid://cpieuoc22whp5" path="res://scenes/alien.tscn" id="2_kewym"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bb63e8j77ko0r" path="res://art/barrier_ring.png" id="5_vcsse"]
 [ext_resource type="Script" uid="uid://c8q75s4icx13q" path="res://scripts/pause_menu.gd" id="6_2so7o"]
 [ext_resource type="PackedScene" uid="uid://cgapopaqviqdm" path="res://scenes/player.tscn" id="7_st0q7"]
+[ext_resource type="FontFile" uid="uid://dyysu3n1yjfqk" path="res://fonts/Death Star.otf" id="8_font"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gi7kc"]
 radius = 112.23
@@ -24,6 +25,11 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="FontVariation" id="FontVariation_spacing"]
+base_font = ExtResource("8_font")
+spacing_glyph = 3
+spacing_space = 9
 
 [node name="Stage" type="Node2D" groups=["stage"]]
 script = ExtResource("1_gi7kc")
@@ -75,6 +81,26 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_6c5u0")
 max_value = 300.0
 value = 300.0
 show_percentage = false
+
+[node name="TimerLabel" type="Label" parent="UI"]
+offset_left = 526.0
+offset_top = 18.0
+offset_right = 626.0
+offset_bottom = 41.0
+theme_override_fonts/font = SubResource("FontVariation_spacing")
+theme_override_font_sizes/font_size = 28
+text = "60"
+horizontal_alignment = 1
+
+[node name="StageLabel" type="Label" parent="UI"]
+offset_left = 1000.0
+offset_top = 18.0
+offset_right = 1130.0
+offset_bottom = 41.0
+theme_override_fonts/font = SubResource("FontVariation_spacing")
+theme_override_font_sizes/font_size = 28
+text = "Stage 1"
+horizontal_alignment = 2
 
 [node name="Center" type="Marker2D" parent="."]
 position = Vector2(581, 316)
