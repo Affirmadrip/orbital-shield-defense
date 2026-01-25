@@ -17,14 +17,13 @@ var barrier_hp: int
 var is_game_over: bool = false
 var is_stage_clear: bool = false
 
-# Stage Logic
 var stage_duration: float = 60.0
 var stage_timer: float = 0.0
 var spawn_queue: Array[int] = []
 var current_spawn_interval: float = 1.0
 var time_until_next_spawn: float = 0.0
 
-# Configuration
+# Stage Configuration
 var stage_config = {
 	1: {
 		"duration": 60.0,
@@ -47,6 +46,7 @@ var stage_config = {
 func _ready() -> void:
 	randomize()
 	
+	# Make sure menus still work when the game is paused
 	if has_node("Clear stage 1"): get_node("Clear stage 1").process_mode = Node.PROCESS_MODE_ALWAYS
 	if has_node("Clear stage 2"): get_node("Clear stage 2").process_mode = Node.PROCESS_MODE_ALWAYS
 	if has_node("GAME OVER"): get_node("GAME OVER").process_mode = Node.PROCESS_MODE_ALWAYS
@@ -66,9 +66,10 @@ func start_stage(stage_num: int) -> void:
 	is_game_over = false
 	is_stage_clear = false
 	
-	# Load config
+	# Get settings for this stage
 	var config = stage_config.get(current_stage, stage_config[2])
-	# Fallback/Scaling logic
+	
+	# If stage is higher than 2, make it harder
 	if not stage_config.has(current_stage):
 		config = stage_config[2].duplicate(true)
 		var diff = current_stage - 2
@@ -78,9 +79,10 @@ func start_stage(stage_num: int) -> void:
 	
 	stage_duration = config["duration"]
 	stage_timer = stage_duration
-	_generate_spawn_queue(config["aliens"])
+	_create_enemy_list(config["aliens"])
 	
-	
+	# Calculate how fast to spawn enemies
+	# We try to finish spawning slightly before the time ends
 	var spawn_duration = stage_duration * 0.90
 	if spawn_queue.size() > 0:
 		current_spawn_interval = spawn_duration / spawn_queue.size()
@@ -91,12 +93,14 @@ func start_stage(stage_num: int) -> void:
 	
 	_update_stage_ui()
 
-func _generate_spawn_queue(counts: Dictionary) -> void:
+func _create_enemy_list(counts: Dictionary) -> void:
 	spawn_queue.clear()
+	# Add enemies to the list based on config
 	for type in counts:
 		var count = counts[type]
 		for i in range(count):
 			spawn_queue.append(type)
+	# Shuffle them so they come out in random order
 	spawn_queue.shuffle()
 
 func _process(delta: float) -> void:
@@ -106,13 +110,13 @@ func _process(delta: float) -> void:
 	stage_timer -= delta
 	_update_timer_ui()
 	
-	# Check Loss: Time ran out
+	# If time runs out, check if we lost
 	if stage_timer <= 0:
-		_check_game_over_condition()
+		_check_loss_condition()
 		return
 		
 	_handle_spawning(delta)
-	_check_stage_clear_condition()
+	_check_win_condition()
 
 func _handle_spawning(delta: float) -> void:
 	if spawn_queue.is_empty():
@@ -131,6 +135,7 @@ func _spawn_alien(type: int) -> void:
 	aliens_container.add_child(a)
 	
 	var center := planet.global_position
+	# Spawn randomly outside the screen
 	var view := get_viewport().get_visible_rect()
 	var left := view.position.x
 	var top := view.position.y
@@ -149,30 +154,29 @@ func _spawn_alien(type: int) -> void:
 	a.alien_type = type
 	a.set_target(center)
 
-func _check_stage_clear_condition() -> void:
-	# Keep logic simple: if no spawns left AND no live aliens => Clear
+func _check_win_condition() -> void:
+	# Win if no enemies left to spawn AND all enemies on screen are dead
 	if spawn_queue.is_empty() and aliens_container.get_child_count() == 0:
 		_on_stage_clear()
 
-func _check_game_over_condition() -> void:
-	# If timer hits 0 and enemies exist => Loss
+func _check_loss_condition() -> void:
+	# Lose if time is up but enemies are still alive
 	if aliens_container.get_child_count() > 0 or not spawn_queue.is_empty():
 		_game_over()
 	else:
-		# Timer hit 0 but no enemies? That's a clear (edge case)
+		# Rare case: Time up exactly when last enemy dies
 		_on_stage_clear()
 
 func _on_stage_clear() -> void:
 	is_stage_clear = true
 	get_tree().paused = true
-	# Show old panels for now to respect incremental approach
+	
+	# Show the correct "Clear Stage" panel
 	var panel_name = "Clear stage " + str(current_stage)
 	if has_node(panel_name):
 		get_node(panel_name).visible = true
 	else:
-		# Fallback if no specific panel exists (for stage 3+)
 		print("Stage Cleared! (No UI for this stage yet)")
-		# Maybe just reuse generic logic in next step
 
 func _game_over() -> void:
 	is_game_over = true
