@@ -252,7 +252,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "SCORE"
+text = "GAME OVER"
 horizontal_alignment = 1
 
 [node name="RetryButton" type="Button" parent="GAME OVER/VBoxContainer"]
@@ -269,3 +269,9 @@ text = "MAIN MENU"
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="PauseMenu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="PauseMenu" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/MainmenuButton" to="PauseMenu" method="_on_mainmenu_button_pressed"]
+[connection signal="pressed" from="Clear stage 1/VBoxContainer/NextStageButton" to="." method="_on_next_stage_button_pressed"]
+[connection signal="pressed" from="Clear stage 1/VBoxContainer/MainmenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Clear stage 2/VBoxContainer/PlayAgainButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="Clear stage 2/VBoxContainer/MainmenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="GAME OVER/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GAME OVER/VBoxContainer/MainmenuButton" to="." method="_on_main_menu_button_pressed"]
