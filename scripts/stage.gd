@@ -24,26 +24,29 @@ var is_stage_clear: bool = false
 
 var stage_duration: float = 60.0
 var stage_timer: float = 0.0
+var target_score_for_stage: int = 500
 var spawn_queue: Array[int] = []
 var current_spawn_interval: float = 1.0
 var time_until_next_spawn: float = 0.0
 
-# Stage Configuration
+# Stage Configuration: Define enemies and time for each stage here
 var stage_config = {
 	1: {
 		"duration": 60.0,
-		"aliens": {
-			Alien.AlienType.RED: 30,
-			Alien.AlienType.PURPLE: 5,
-			Alien.AlienType.GREY: 2
-		}
-	},
-	2: {
-		"duration": 85.0,
+		"target_score": 500,
 		"aliens": {
 			Alien.AlienType.RED: 45,
 			Alien.AlienType.PURPLE: 10,
 			Alien.AlienType.GREY: 4
+		}
+	},
+	2: {
+		"duration": 85.0,
+		"target_score": 850,
+		"aliens": {
+			Alien.AlienType.RED: 60,
+			Alien.AlienType.PURPLE: 15,
+			Alien.AlienType.GREY: 6
 		}
 	}
 }
@@ -81,11 +84,16 @@ func start_stage(stage_num: int) -> void:
 		config = stage_config[2].duplicate(true)
 		var diff = current_stage - 2
 		config["duration"] += 10 * diff
+		config["target_score"] += 400 * diff
 		config["aliens"][Alien.AlienType.RED] += 5 * diff
 		config["aliens"][Alien.AlienType.PURPLE] += 2 * diff
 	
 	stage_duration = config["duration"]
 	stage_timer = stage_duration
+	score = 0
+	
+	target_score_for_stage = config["target_score"]
+	
 	_create_enemy_list(config["aliens"])
 	
 	# Calculate how fast to spawn enemies
@@ -146,6 +154,7 @@ func _spawn_alien(type: int) -> void:
 	
 	var a: Alien = alien_scene.instantiate()
 	aliens_container.add_child(a)
+	a.destroyed.connect(_on_alien_destroyed)
 	
 	var center := planet.global_position
 	# Spawn randomly outside the screen
@@ -167,9 +176,14 @@ func _spawn_alien(type: int) -> void:
 	a.alien_type = type
 	a.set_target(center)
 
+func _on_alien_destroyed(val: int) -> void:
+	score += val
+	_update_stage_ui()
+	_check_win_condition()
+
 func _check_win_condition() -> void:
-	# Win if no enemies left to spawn AND all enemies on screen are dead
-	if spawn_queue.is_empty() and aliens_container.get_child_count() == 0:
+	# Win if score >= target
+	if score >= target_score_for_stage:
 		_on_stage_clear()
 
 func _check_loss_condition() -> void:
