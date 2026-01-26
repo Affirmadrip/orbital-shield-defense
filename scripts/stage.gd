@@ -9,7 +9,7 @@ extends Node2D
 @onready var hp_label: Label = $UI/HPLabel
 @onready var hp_bar: ProgressBar = $UI/HPBar
 @onready var timer_label: Label = $UI/TimerLabel
-@onready var stage_label: Label = $UI/StageLabel
+
 @onready var score_label: Label = $UI/ScoreLabel
 
 var score: int = 0
@@ -112,10 +112,8 @@ func start_stage(stage_num: int) -> void:
 	_update_stage_ui()
 
 func _update_stage_ui() -> void:
-	if stage_label:
-		stage_label.text = "STAGE " + str(current_stage)
 	if score_label:
-		score_label.text = "Score: " + str(score)
+		score_label.text = "Score " + str(score)
 
 func _create_enemy_list(counts: Dictionary) -> void:
 	spawn_queue.clear()
