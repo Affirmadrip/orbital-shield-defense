@@ -75,7 +75,11 @@ func start_stage(stage_num: int) -> void:
 	current_stage = stage_num
 	is_game_over = false
 	is_stage_clear = false
-
+	
+	# Clear existing aliens from previous stage
+	for child in aliens_container.get_children():
+		child.queue_free()
+	
 	# Get settings for this stage
 	var config = stage_config.get(current_stage, stage_config[2])
 	
