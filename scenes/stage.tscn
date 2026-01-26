@@ -28,7 +28,7 @@ corner_radius_bottom_left = 6
 
 [sub_resource type="FontVariation" id="FontVariation_spacing"]
 base_font = ExtResource("8_font")
-spacing_glyph = 3
+spacing_glyph = 4
 spacing_space = 9
 
 [node name="Stage" type="Node2D" groups=["stage"]]
@@ -108,7 +108,7 @@ offset_right = 1130.0
 offset_bottom = 81.0
 theme_override_fonts/font = SubResource("FontVariation_spacing")
 theme_override_font_sizes/font_size = 22
-text = "Score: 0"
+text = "Score 0"
 horizontal_alignment = 2
 
 [node name="Center" type="Marker2D" parent="."]
@@ -201,6 +201,7 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
 [node name="Clear stage 2" type="Panel" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -223,7 +224,8 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "Thanks For Playing"
+text = "Stage 2 Clear
+Thanks For playing"
 horizontal_alignment = 1
 
 [node name="PlayAgainButton" type="Button" parent="Clear stage 2/VBoxContainer"]
