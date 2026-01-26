@@ -10,6 +10,9 @@ extends Node2D
 @onready var hp_bar: ProgressBar = $UI/HPBar
 @onready var timer_label: Label = $UI/TimerLabel
 @onready var stage_label: Label = $UI/StageLabel
+@onready var score_label: Label = $UI/ScoreLabel
+
+var score: int = 0
 
 signal invulnerable()
 
@@ -96,6 +99,12 @@ func start_stage(stage_num: int) -> void:
 	time_until_next_spawn = current_spawn_interval
 	
 	_update_stage_ui()
+
+func _update_stage_ui() -> void:
+	if stage_label:
+		stage_label.text = "STAGE " + str(current_stage)
+	if score_label:
+		score_label.text = "Score: " + str(score)
 
 func _create_enemy_list(counts: Dictionary) -> void:
 	spawn_queue.clear()
@@ -208,9 +217,7 @@ func _update_timer_ui() -> void:
 	if timer_label:
 		timer_label.text = "%d" % ceil(max(0, stage_timer))
 
-func _update_stage_ui() -> void:
-	if stage_label:
-		stage_label.text = "STAGE " + str(current_stage)
+
 
 func _on_barrier_area_entered(area: Area2D) -> void:
 	if area is Alien:

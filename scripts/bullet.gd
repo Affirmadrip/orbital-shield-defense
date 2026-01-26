@@ -31,6 +31,6 @@ func _on_area_entered(area: Area2D) -> void:
 	if area is Alien:
 		bullet_hitted.emit(damage)
 		area.take_damage(damage)
-		print("Hitted!")
+		#print("Hitted!")
 		if not charged:
 			queue_free()
