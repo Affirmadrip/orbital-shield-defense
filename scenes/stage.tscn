@@ -40,7 +40,6 @@ scale = Vector2(5.687682, 5.687682)
 texture = ExtResource("4_st0q7")
 
 [node name="Barrier" type="Area2D" parent="." groups=["barrier"]]
-visible = false
 position = Vector2(583, 319)
 collision_mask = 2
 
