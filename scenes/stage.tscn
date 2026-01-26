@@ -101,6 +101,16 @@ theme_override_font_sizes/font_size = 28
 text = "Stage 1"
 horizontal_alignment = 2
 
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 1000.0
+offset_top = 58.0
+offset_right = 1130.0
+offset_bottom = 81.0
+theme_override_fonts/font = SubResource("FontVariation_spacing")
+theme_override_font_sizes/font_size = 22
+text = "Score: 0"
+horizontal_alignment = 2
+
 [node name="Center" type="Marker2D" parent="."]
 position = Vector2(581, 316)
 
@@ -177,7 +187,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "SCORE"
+text = "Stage Clear!"
 horizontal_alignment = 1
 
 [node name="NextStageButton" type="Button" parent="Clear stage 1/VBoxContainer"]
@@ -191,7 +201,6 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
 [node name="Clear stage 2" type="Panel" parent="."]
-visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -214,7 +223,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "SCORE"
+text = "Thanks For Playing"
 horizontal_alignment = 1
 
 [node name="PlayAgainButton" type="Button" parent="Clear stage 2/VBoxContainer"]

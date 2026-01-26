@@ -10,6 +10,9 @@ extends Node2D
 @onready var hp_bar: ProgressBar = $UI/HPBar
 @onready var timer_label: Label = $UI/TimerLabel
 @onready var stage_label: Label = $UI/StageLabel
+@onready var score_label: Label = $UI/ScoreLabel
+
+var score: int = 0
 
 signal invulnerable()
 
@@ -21,6 +24,7 @@ var is_stage_clear: bool = false
 
 var stage_duration: float = 60.0
 var stage_timer: float = 0.0
+var target_score_for_stage: int = 500
 var spawn_queue: Array[int] = []
 var current_spawn_interval: float = 1.0
 var time_until_next_spawn: float = 0.0
@@ -29,18 +33,20 @@ var time_until_next_spawn: float = 0.0
 var stage_config = {
 	1: {
 		"duration": 60.0,
-		"aliens": {
-			Alien.AlienType.RED: 30,
-			Alien.AlienType.PURPLE: 5,
-			Alien.AlienType.GREY: 2
-		}
-	},
-	2: {
-		"duration": 85.0,
+		"target_score": 500,
 		"aliens": {
 			Alien.AlienType.RED: 45,
 			Alien.AlienType.PURPLE: 10,
 			Alien.AlienType.GREY: 4
+		}
+	},
+	2: {
+		"duration": 85.0,
+		"target_score": 850,
+		"aliens": {
+			Alien.AlienType.RED: 60,
+			Alien.AlienType.PURPLE: 15,
+			Alien.AlienType.GREY: 6
 		}
 	}
 }
@@ -70,6 +76,10 @@ func start_stage(stage_num: int) -> void:
 	is_game_over = false
 	is_stage_clear = false
 	
+	# Clear existing aliens from previous stage
+	for child in aliens_container.get_children():
+		child.queue_free()
+	
 	# Get settings for this stage
 	var config = stage_config.get(current_stage, stage_config[2])
 	
@@ -78,16 +88,20 @@ func start_stage(stage_num: int) -> void:
 		config = stage_config[2].duplicate(true)
 		var diff = current_stage - 2
 		config["duration"] += 10 * diff
+		config["target_score"] += 400 * diff
 		config["aliens"][Alien.AlienType.RED] += 5 * diff
 		config["aliens"][Alien.AlienType.PURPLE] += 2 * diff
 	
 	stage_duration = config["duration"]
 	stage_timer = stage_duration
+	score = 0
+	
+	target_score_for_stage = config["target_score"]
+	
 	_create_enemy_list(config["aliens"])
 	
 	# Calculate how fast to spawn enemies
-	# We try to finish spawning slightly before the time ends
-	var spawn_duration = stage_duration * 0.90
+	var spawn_duration = stage_duration * 1.20
 	if spawn_queue.size() > 0:
 		current_spawn_interval = spawn_duration / spawn_queue.size()
 	else:
@@ -96,6 +110,12 @@ func start_stage(stage_num: int) -> void:
 	time_until_next_spawn = current_spawn_interval
 	
 	_update_stage_ui()
+
+func _update_stage_ui() -> void:
+	if stage_label:
+		stage_label.text = "STAGE " + str(current_stage)
+	if score_label:
+		score_label.text = "Score: " + str(score)
 
 func _create_enemy_list(counts: Dictionary) -> void:
 	spawn_queue.clear()
@@ -114,13 +134,12 @@ func _process(delta: float) -> void:
 	stage_timer -= delta
 	_update_timer_ui()
 	
-	# If time runs out, check if we lost
+	# If time runs out, check result (Win or Loss based on score)
 	if stage_timer <= 0:
 		_check_loss_condition()
 		return
 		
 	_handle_spawning(delta)
-	_check_win_condition()
 
 func _handle_spawning(delta: float) -> void:
 	if spawn_queue.is_empty():
@@ -137,6 +156,7 @@ func _spawn_alien(type: int) -> void:
 	
 	var a: Alien = alien_scene.instantiate()
 	aliens_container.add_child(a)
+	a.destroyed.connect(_on_alien_destroyed)
 	
 	var center := planet.global_position
 	# Spawn randomly outside the screen
@@ -158,24 +178,25 @@ func _spawn_alien(type: int) -> void:
 	a.alien_type = type
 	a.set_target(center)
 
-func _check_win_condition() -> void:
-	# Win if no enemies left to spawn AND all enemies on screen are dead
-	if spawn_queue.is_empty() and aliens_container.get_child_count() == 0:
-		_on_stage_clear()
+func _on_alien_destroyed(val: int) -> void:
+	score += val
+	_update_stage_ui()
 
 func _check_loss_condition() -> void:
-	# Lose if time is up but enemies are still alive
-	if aliens_container.get_child_count() > 0 or not spawn_queue.is_empty():
-		_game_over()
-	else:
-		# Rare case: Time up exactly when last enemy dies
+	# Called when timer runs out (stage_timer <= 0)
+	
+	# Check if we met the score target
+	if score >= target_score_for_stage:
+		# Success
 		_on_stage_clear()
+	else:
+		# Failed to reach target score
+		_game_over()
 
 func _on_stage_clear() -> void:
 	is_stage_clear = true
 	get_tree().paused = true
 	
-	# Show the correct "Clear Stage" panel
 	var panel_name = "Clear stage " + str(current_stage)
 	if has_node(panel_name):
 		get_node(panel_name).visible = true
@@ -208,16 +229,14 @@ func _update_timer_ui() -> void:
 	if timer_label:
 		timer_label.text = "%d" % ceil(max(0, stage_timer))
 
-func _update_stage_ui() -> void:
-	if stage_label:
-		stage_label.text = "STAGE " + str(current_stage)
+
 
 func _on_barrier_area_entered(area: Area2D) -> void:
 	if area is Alien:
 		damage_barrier(area.damage_to_barrier)
 		area.queue_free()
 
-# Button Listeners (to be connected from UI)
+# Button Listeners
 func _on_next_stage_button_pressed() -> void:
 	get_tree().paused = false
 	# Hide old panels
