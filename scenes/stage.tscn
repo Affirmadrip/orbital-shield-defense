@@ -28,7 +28,7 @@ corner_radius_bottom_left = 6
 
 [sub_resource type="FontVariation" id="FontVariation_spacing"]
 base_font = ExtResource("8_font")
-spacing_glyph = 3
+spacing_glyph = 4
 spacing_space = 9
 
 [node name="Stage" type="Node2D" groups=["stage"]]
@@ -91,24 +91,14 @@ theme_override_font_sizes/font_size = 28
 text = "60"
 horizontal_alignment = 1
 
-[node name="StageLabel" type="Label" parent="UI"]
-offset_left = 1000.0
-offset_top = 18.0
-offset_right = 1130.0
-offset_bottom = 41.0
-theme_override_fonts/font = SubResource("FontVariation_spacing")
-theme_override_font_sizes/font_size = 28
-text = "Stage 1"
-horizontal_alignment = 2
-
 [node name="ScoreLabel" type="Label" parent="UI"]
-offset_left = 1000.0
-offset_top = 58.0
-offset_right = 1130.0
+offset_left = 993.0
+offset_top = 18.0
+offset_right = 1123.0
 offset_bottom = 81.0
 theme_override_fonts/font = SubResource("FontVariation_spacing")
-theme_override_font_sizes/font_size = 22
-text = "Score: 0"
+theme_override_font_sizes/font_size = 20
+text = "Score"
 horizontal_alignment = 2
 
 [node name="Center" type="Marker2D" parent="."]
@@ -187,7 +177,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "Stage Clear!"
+text = "Stage 1 Clear"
 horizontal_alignment = 1
 
 [node name="NextStageButton" type="Button" parent="Clear stage 1/VBoxContainer"]
@@ -201,6 +191,7 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
 [node name="Clear stage 2" type="Panel" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -223,7 +214,8 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "Thanks For Playing"
+text = "Stage 2 Clear
+Thanks For playing"
 horizontal_alignment = 1
 
 [node name="PlayAgainButton" type="Button" parent="Clear stage 2/VBoxContainer"]
