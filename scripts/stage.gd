@@ -9,7 +9,7 @@ extends Node2D
 @onready var hp_label: Label = $UI/HPLabel
 @onready var hp_bar: ProgressBar = $UI/HPBar
 @onready var timer_label: Label = $UI/TimerLabel
-
+@onready var stage_label: Label = $UI/StageLabel
 @onready var score_label: Label = $UI/ScoreLabel
 
 var score: int = 0
@@ -112,8 +112,10 @@ func start_stage(stage_num: int) -> void:
 	_update_stage_ui()
 
 func _update_stage_ui() -> void:
+	if stage_label:
+		stage_label.text = "STAGE " + str(current_stage)
 	if score_label:
-		score_label.text = "Score " + str(score)
+		score_label.text = "Score " + str(score) + " / " + str(target_score_for_stage)
 
 func _create_enemy_list(counts: Dictionary) -> void:
 	spawn_queue.clear()
@@ -219,7 +221,7 @@ func damage_barrier(amount: float) -> void:
 		reset_barrier()
 
 func _update_hp_ui() -> void:
-	hp_label.text = "Barrier HP: %d / %d" % [barrier_hp, barrier_max_hp]
+	hp_label.text = "HP %d / %d" % [barrier_hp, barrier_max_hp]
 	hp_bar.max_value = barrier_max_hp
 	hp_bar.value = barrier_hp
 
