@@ -187,7 +187,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "SCORE"
+text = "Stage Clear!"
 horizontal_alignment = 1
 
 [node name="NextStageButton" type="Button" parent="Clear stage 1/VBoxContainer"]
@@ -201,7 +201,6 @@ theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
 [node name="Clear stage 2" type="Panel" parent="."]
-visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 

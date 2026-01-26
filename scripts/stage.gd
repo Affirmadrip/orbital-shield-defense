@@ -29,7 +29,7 @@ var spawn_queue: Array[int] = []
 var current_spawn_interval: float = 1.0
 var time_until_next_spawn: float = 0.0
 
-# Stage Configuration: Define enemies and time for each stage here
+# Stage Configuration
 var stage_config = {
 	1: {
 		"duration": 60.0,
@@ -75,7 +75,7 @@ func start_stage(stage_num: int) -> void:
 	current_stage = stage_num
 	is_game_over = false
 	is_stage_clear = false
-	
+
 	# Get settings for this stage
 	var config = stage_config.get(current_stage, stage_config[2])
 	
@@ -97,8 +97,7 @@ func start_stage(stage_num: int) -> void:
 	_create_enemy_list(config["aliens"])
 	
 	# Calculate how fast to spawn enemies
-	# We try to finish spawning slightly before the time ends
-	var spawn_duration = stage_duration * 0.90
+	var spawn_duration = stage_duration * 1.20
 	if spawn_queue.size() > 0:
 		current_spawn_interval = spawn_duration / spawn_queue.size()
 	else:
@@ -131,13 +130,12 @@ func _process(delta: float) -> void:
 	stage_timer -= delta
 	_update_timer_ui()
 	
-	# If time runs out, check if we lost
+	# If time runs out, check result (Win or Loss based on score)
 	if stage_timer <= 0:
 		_check_loss_condition()
 		return
 		
 	_handle_spawning(delta)
-	_check_win_condition()
 
 func _handle_spawning(delta: float) -> void:
 	if spawn_queue.is_empty():
@@ -179,26 +177,22 @@ func _spawn_alien(type: int) -> void:
 func _on_alien_destroyed(val: int) -> void:
 	score += val
 	_update_stage_ui()
-	_check_win_condition()
-
-func _check_win_condition() -> void:
-	# Win if score >= target
-	if score >= target_score_for_stage:
-		_on_stage_clear()
 
 func _check_loss_condition() -> void:
-	# Lose if time is up but enemies are still alive
-	if aliens_container.get_child_count() > 0 or not spawn_queue.is_empty():
-		_game_over()
-	else:
-		# Rare case: Time up exactly when last enemy dies
+	# Called when timer runs out (stage_timer <= 0)
+	
+	# Check if we met the score target
+	if score >= target_score_for_stage:
+		# Success
 		_on_stage_clear()
+	else:
+		# Failed to reach target score
+		_game_over()
 
 func _on_stage_clear() -> void:
 	is_stage_clear = true
 	get_tree().paused = true
 	
-	# Show the correct "Clear Stage" panel
 	var panel_name = "Clear stage " + str(current_stage)
 	if has_node(panel_name):
 		get_node(panel_name).visible = true
@@ -238,7 +232,7 @@ func _on_barrier_area_entered(area: Area2D) -> void:
 		damage_barrier(area.damage_to_barrier)
 		area.queue_free()
 
-# Button Listeners (to be connected from UI)
+# Button Listeners
 func _on_next_stage_button_pressed() -> void:
 	get_tree().paused = false
 	# Hide old panels
