@@ -1,10 +1,10 @@
 [gd_scene load_steps=17 format=3 uid="uid://3i0rnjrn48xk"]
 
-[ext_resource type="Script" uid="uid://6313hai1jyg6" path="res://scripts/main_menu.gd" id="1_8ln24"]
+[ext_resource type="Script" uid="uid://cxk03wchjcnct" path="res://scripts/main_menu.gd" id="1_8ln24"]
 [ext_resource type="Texture2D" uid="uid://bomyxs8cg4oyf" path="res://art/space.jpg" id="2_rtw2f"]
 [ext_resource type="FontFile" uid="uid://dyysu3n1yjfqk" path="res://fonts/Death Star.otf" id="3_oa1go"]
 [ext_resource type="AudioStream" uid="uid://y8fx3ki3ft50" path="res://audio/Courtesy.mp3" id="4_tbmy8"]
-[ext_resource type="Script" uid="uid://chilhujugw56i" path="res://scripts/audio_control.gd" id="5_jk1qb"]
+[ext_resource type="Script" uid="uid://cj7vqrobxodxv" path="res://scripts/audio_control.gd" id="5_jk1qb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vrkn"]
 bg_color = Color(0.14468117, 0.21588369, 0.3024436, 1)

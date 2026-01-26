@@ -11,6 +11,8 @@ extends Node2D
 @onready var timer_label: Label = $UI/TimerLabel
 @onready var stage_label: Label = $UI/StageLabel
 
+signal invulnerable()
+
 var current_stage: int = 1
 var barrier_max_hp: int = 10
 var barrier_hp: int
@@ -60,6 +62,8 @@ func _ready() -> void:
 	_update_hp_ui()
 	
 	start_stage(current_stage)
+	original_color = barrier.modulate
+	reset_barrier()
 
 func start_stage(stage_num: int) -> void:
 	current_stage = stage_num
@@ -184,11 +188,16 @@ func _game_over() -> void:
 	if has_node("GAME OVER"):
 		get_node("GAME OVER").visible = true
 
-func damage_barrier(amount: int) -> void:
-	barrier_hp = clamp(barrier_hp - amount, 0, barrier_max_hp)
-	_update_hp_ui()
-	if barrier_hp <= 0:
-		_game_over()
+func damage_barrier(amount: float) -> void:
+	if not is_invulnerable:
+		barrier_hp = clamp(barrier_hp - amount, 0, barrier_max_hp)
+		_update_hp_ui()
+		if barrier_hp <= 0:
+			_game_over()
+	elif invulnerable:
+		is_invulnerable = false
+		barrier.modulate = original_color
+		reset_barrier()
 
 func _update_hp_ui() -> void:
 	hp_label.text = "Barrier HP: %d / %d" % [barrier_hp, barrier_max_hp]
@@ -224,3 +233,12 @@ func _on_main_menu_button_pressed() -> void:
 func _on_retry_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+var is_invulnerable = false
+var original_color 
+func reset_barrier():
+	await get_tree().create_timer(2.5).timeout
+	is_invulnerable = true
+	barrier.modulate = Color.YELLOW
+	
+	

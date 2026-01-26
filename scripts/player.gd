@@ -49,6 +49,8 @@ func create_bullet(bullet_scale_value: float) -> void:
 	var new_bullet = bullet.instantiate()
 	get_node("/root/").add_child(new_bullet)
 	new_bullet.set_player(self)
+	var new_damage = (new_bullet.damage + (bullet_scale_value* 1.9)) 
+	new_bullet.damage = new_damage
 	new_bullet.scale_bullet(bullet_scale_value)
 	
 	

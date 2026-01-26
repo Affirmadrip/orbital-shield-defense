@@ -46,7 +46,6 @@ scale = Vector2(5.687682, 5.687682)
 texture = ExtResource("4_st0q7")
 
 [node name="Barrier" type="Area2D" parent="." groups=["barrier"]]
-visible = false
 position = Vector2(583, 319)
 collision_mask = 2
 
@@ -78,7 +77,7 @@ offset_right = 320.0
 offset_bottom = 44.0
 theme_override_styles/background = SubResource("StyleBoxFlat_kewym")
 theme_override_styles/fill = SubResource("StyleBoxFlat_6c5u0")
-max_value = 300.0
+max_value = 450.0
 value = 300.0
 show_percentage = false
 
