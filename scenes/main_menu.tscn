@@ -1,8 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://3i0rnjrn48xk"]
+[gd_scene load_steps=18 format=3 uid="uid://3i0rnjrn48xk"]
 
-[ext_resource type="Script" uid="uid://cxk03wchjcnct" path="res://scripts/main_menu.gd" id="1_8ln24"]
+[ext_resource type="Script" uid="uid://6313hai1jyg6" path="res://scripts/main_menu.gd" id="1_8ln24"]
 [ext_resource type="Texture2D" uid="uid://bomyxs8cg4oyf" path="res://art/space.jpg" id="2_rtw2f"]
 [ext_resource type="FontFile" uid="uid://dyysu3n1yjfqk" path="res://fonts/Death Star.otf" id="3_oa1go"]
+[ext_resource type="AudioStream" uid="uid://byw0h8spqj32e" path="res://audio/Soundbed.mp3" id="4_rtw2f"]
+[ext_resource type="Script" uid="uid://chilhujugw56i" path="res://scripts/audio_control.gd" id="5_jk1qb"]
+[ext_resource type="FontFile" uid="uid://x0kdvigwy2xk" path="res://fonts/Maitree Medium.ttf" id="6_oa1go"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vrkn"]
 bg_color = Color(0.14468117, 0.21588369, 0.3024436, 1)
@@ -186,6 +189,11 @@ theme_override_fonts/font = ExtResource("3_oa1go")
 theme_override_font_sizes/font_size = 80
 text = "Astral Impact"
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_rtw2f")
+autoplay = true
+bus = &"Music"
+
 [node name="Tutorial" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 153.0
@@ -200,9 +208,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -88.0
-offset_top = 26.0
+offset_top = 24.0
 offset_right = 88.0
-offset_bottom = 71.0
+offset_bottom = 69.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_oa1go")
 theme_override_font_sizes/font_size = 32
@@ -210,45 +218,48 @@ text = "Mechanics"
 
 [node name="Description" type="Label" parent="Tutorial/Mechanics"]
 layout_mode = 0
-offset_left = -284.5
-offset_top = 49.0
-offset_right = 527.5
-offset_bottom = 220.0
+offset_left = -292.5
+offset_top = 45.0
+offset_right = 582.5
+offset_bottom = 273.0
+theme_override_fonts/font = ExtResource("6_oa1go")
 theme_override_font_sizes/font_size = 18
-text = "1.ผู้เล่นต้องป้องกันจุดศูนย์กลาง(ดาวเคราะห์)จากศัตรู(Alien)
-โดยให้ผู้เล่นควบคุมโล่ที่คอยหมุนอยู่รอบแกนกลางโดยกดปุ่ม(A เพื่อหมุนซ้าย และ D เพื่อหมุนขวา)
-2.ดาวเคราะห์มี Barrier ป้องกัน โดย Barrier จะมี HP ระดับนึง
-3.ผู้เล่นต้องยิง Alien เพื่อป้องกัน Barrier ของดาวเคราะห์
-โดยผู้เล่นกด “คลิกซ้าย” เพื่อยิงกระสุน และ “คลิกซ้ายค้าง” เพื่อชาร์จแล้วยิงกระสุนลูกใหญ่
+text = "1.ผู้เล่นต้องป้องกันจุดศูนย์กลาง (ดาวเคราะห์) จากศัตรู (Alien)
+โดยให้ผู้เล่นควบคุมโล่ที่คอยหมุนอยู่รอบแกนกลางโดยกดปุ่ม (A เพื่อหมุนซ้าย และ D เพื่อหมุนขวา)
+2.ดาวเคราะห์มี Barrier ป้องกัน โดยดาวเคราะห์ จะมี HP เริ่มต้นคือ 10 
+(ถ้า Barrier เป็นสีเหลืองคือทำงานอยู่ ดาวเคราะห์จะไม่ได้รับ Damage)
+3.ผู้เล่นต้องยิง Alien เพื่อคุ้มกันดาวเคราะห์ โดยผู้เล่นกดปุ่ม “Spacebar” เพื่อยิงกระสุน 
+และกด “Spacebar” ค้าง เพื่อชาร์จแล้วยิงกระสุนลูกใหญ่
 "
 
-[node name="Rule" type="Label" parent="Tutorial"]
+[node name="Rules" type="Label" parent="Tutorial"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -40.5
-offset_top = 250.0
-offset_right = 34.5
-offset_bottom = 295.0
+offset_left = -49.0
+offset_top = 271.0
+offset_right = 43.0
+offset_bottom = 316.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_oa1go")
 theme_override_font_sizes/font_size = 32
-text = "Rule"
+text = "Rules"
 
-[node name="Description" type="Label" parent="Tutorial/Rule"]
+[node name="Description" type="Label" parent="Tutorial/Rules"]
 layout_mode = 0
-offset_left = -332.0
-offset_top = 45.0
-offset_right = 480.0
-offset_bottom = 274.0
+offset_left = -331.5
+offset_top = 32.0
+offset_right = 480.5
+offset_bottom = 293.0
+theme_override_fonts/font = ExtResource("6_oa1go")
 theme_override_font_sizes/font_size = 18
 text = "1.เงื่อนไขการชนะ (ทั้งคู่)
-HP ของ Barrier ต้องมากกว่า 0 จนหมดเวลาใน Stage และ กำจัด Alien แล้วทำคะแนนได้ถึงเป้าหมาย
+HP ของดาวเคราะห์ต้องมากกว่า 0 จนหมดเวลาใน Stage และ กำจัด Alien แล้วทำคะแนนได้ถึงเป้าหมาย
 2.เงื่อนไขการแพ้ (อย่างใดอย่างนึง)
-HP ของ Barrier เป็น 0 หรือ หมดเวลาใน Stage แล้ว คะแนนไม่ถึงเป้าหมาย
+HP ของดาวเคราะห์เป็น 0 หรือ หมดเวลาใน Stage แล้ว คะแนนไม่ถึงเป้าหมาย
 3.มีทั้งหมด 2 ด่าน (Stage)
-Stage 2 เพิ่มระดับความยากจาก Stage 1 เช่น การเพิ่มความเร็ว,การเพิ่มจำนวน Alien
+ใน Stage 2 จะมี Goal Score และเวลาที่มากขึ้น
 
 "
 
@@ -350,6 +361,8 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_jix8l")
 max_value = 1.0
 step = 0.05
 value = 1.0
+script = ExtResource("5_jk1qb")
+audio_bus_name = "Music"
 
 [node name="Label" type="Label" parent="Settings/AudioControl"]
 layout_mode = 0
@@ -369,6 +382,8 @@ theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_jix8l")
 max_value = 1.0
 step = 0.05
 value = 1.0
+script = ExtResource("5_jk1qb")
+audio_bus_name = "Music"
 
 [node name="Label" type="Label" parent="Settings/AudioControl/AudioControl"]
 layout_mode = 0
@@ -387,14 +402,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8ln24")
 
-[node name="Label" type="Label" parent="Credits"]
-layout_mode = 0
-offset_left = 153.0
-offset_top = 57.0
-offset_right = 904.0
-offset_bottom = 520.0
-text = "something..."
-
 [node name="Button5" type="Button" parent="Credits"]
 layout_mode = 1
 anchors_preset = 8
@@ -403,9 +410,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -114.25
-offset_top = 218.5
+offset_top = 265.5
 offset_right = 114.25
-offset_bottom = 263.5
+offset_bottom = 310.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -420,21 +427,64 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_fu7sn")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_06t4h")
 text = "Exit"
 
-[connection signal="mouse_entered" from="MainButtons/Button" to="." method="_on_button_hover"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Credits"]
+layout_mode = 0
+offset_top = 29.0
+offset_right = 1152.0
+offset_bottom = 579.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Developer" type="Label" parent="Credits/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "                     Developer
+66050221 นายนวพล โพธิ์แหบ
+66050541 นายก้องภัค พัฒนศิริ 
+66050576 นายไกรวิชญ์ โตดำรงรัตน์ 
+66050956 นายภัทรเศรษฐ์ ช้างมาศ
+66051170 นายโอมาร์ เพ็งสะและ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+66050221 นายนวพล โพธิ์แหบ
+66050541 นายก้องภัค พัฒนศิริ 
+66050576 นายไกรวิชญ์ โตดำรงรัตน์ 
+66050956 นายภัทรเศรษฐ์ ช้างมาศ
+66051170 นายโอมาร์ เพ็งสะและ
+"
+
 [connection signal="pressed" from="MainButtons/Button" to="." method="_on_start_pressed"]
-[connection signal="mouse_entered" from="MainButtons/Button2" to="." method="_on_button_hover"]
 [connection signal="pressed" from="MainButtons/Button2" to="." method="_on_tutorial_pressed"]
-[connection signal="mouse_entered" from="MainButtons/Button3" to="." method="_on_button_hover"]
 [connection signal="pressed" from="MainButtons/Button3" to="." method="_on_settings_pressed"]
-[connection signal="mouse_entered" from="MainButtons/Button4" to="." method="_on_button_hover"]
 [connection signal="pressed" from="MainButtons/Button4" to="." method="_on_credits_pressed"]
-[connection signal="mouse_entered" from="MainButtons/Button5" to="." method="_on_button_hover"]
 [connection signal="pressed" from="MainButtons/Button5" to="." method="_on_exit_pressed"]
-[connection signal="mouse_entered" from="Tutorial/Button5" to="." method="_on_button_hover"]
 [connection signal="pressed" from="Tutorial/Button5" to="." method="_on_back_tutorial_pressed"]
-[connection signal="mouse_entered" from="Settings/Label/Button5" to="." method="_on_button_hover"]
 [connection signal="pressed" from="Settings/Label/Button5" to="." method="_on_back_settings_pressed"]
 [connection signal="value_changed" from="Settings/AudioControl" to="Settings/AudioControl" method="_on_value_changed"]
 [connection signal="value_changed" from="Settings/AudioControl/AudioControl" to="Settings/AudioControl/AudioControl" method="_on_value_changed"]
-[connection signal="mouse_entered" from="Credits/Button5" to="." method="_on_button_hover"]
 [connection signal="pressed" from="Credits/Button5" to="." method="_on_back_credits_pressed"]
