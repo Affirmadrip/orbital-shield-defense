@@ -29,23 +29,25 @@ func stop_bgm() -> void:
 func _play_bgm(stream: AudioStream) -> void:
 	if stream == null:
 		return
-	# Avoid restarting the same track repeatedly
 	if bgm.stream == stream and bgm.playing:
 		return
 	bgm.stream = stream
 	bgm.play()
 
-func play_sfx(stream: AudioStream) -> void:
+func play_sfx(stream: AudioStream, extra_db: float = 0.0) -> void:
 	if stream == null:
 		return
 	var p := sfx_players[sfx_index]
 	sfx_index = (sfx_index + 1) % sfx_players.size()
+
+	p.stop()             
 	p.stream = stream
+	p.volume_db = extra_db 
 	p.play()
 
 func sfx_button_hover() -> void: play_sfx(sfx_hover)
-func sfx_button_click() -> void: play_sfx(sfx_click)
-func sfx_shoot() -> void: play_sfx(sfx_bullet)
+func sfx_button_click() -> void: play_sfx(sfx_click, -3.0)
+func sfx_shoot() -> void: play_sfx(sfx_bullet, -8.0)
 func sfx_alien_die() -> void: play_sfx(sfx_alien_dies)
 func sfx_stage_clear() -> void: play_sfx(sfx_clear)
 func sfx_game_over() -> void: play_sfx(sfx_gameover)
@@ -53,6 +55,3 @@ func sfx_takehit() -> void: play_sfx(sfx_take_hit)
 
 func _ready():
 	print("AudioManager ready")
-	print("AudioManager ready. Has play_takehit? ", has_method("play_takehit"))
-	print("bgm_menu is null? ", bgm_menu == null)
-	print("bgm_stage is null? ", bgm_stage == null)

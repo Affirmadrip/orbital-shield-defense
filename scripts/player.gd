@@ -28,8 +28,7 @@ func _physics_process(delta) -> void:
 		direction += 1
 	if Input.is_action_pressed("Fly_Faster"):
 		current_rotation_speed = rotation_speed * 1.20
-	#if Input.is_action_just_pressed("Shoot"):
-		#shoots()
+
 	angle += direction * current_rotation_speed * delta
 	rotation = angle - PI/2
 	global_position = center_node.global_position + (Vector2(cos(angle), sin(angle)) * radius)
@@ -45,7 +44,6 @@ func _input(event):
 		create_bullet(bullet_current_accumulation)
 		bullet_current_accumulation = 1.0
 		
-	
 func create_bullet(bullet_scale_value: float) -> void:
 	var new_bullet = bullet.instantiate()
 	get_node("/root/").add_child(new_bullet)
