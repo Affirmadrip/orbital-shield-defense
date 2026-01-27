@@ -1,0 +1,45 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3aw7guu62euy"]
+
+[ext_resource type="Script" uid="uid://ca4fm1cpdskpk" path="res://scripts/audio_manager.gd" id="1_8qd8g"]
+[ext_resource type="AudioStream" uid="uid://xa6xhn8315bj" path="res://audio/bgm_menu.ogg" id="2_ujhup"]
+[ext_resource type="AudioStream" uid="uid://bhibkirefoa8e" path="res://audio/bgm_stage.ogg" id="3_064dn"]
+[ext_resource type="AudioStream" uid="uid://cp7vd6dq5dd7d" path="res://audio/sfx_hover.wav" id="4_ic5jq"]
+[ext_resource type="AudioStream" uid="uid://dnxlhookul8x" path="res://audio/sfx_click.wav" id="5_if78k"]
+[ext_resource type="AudioStream" uid="uid://c63nm4i8lasko" path="res://audio/sfx_bullet.wav" id="6_8igv3"]
+[ext_resource type="AudioStream" uid="uid://cr135urcgd5w4" path="res://audio/sfx_alien_dies.wav" id="7_2y2jw"]
+[ext_resource type="AudioStream" uid="uid://dl3bhkh7mac6w" path="res://audio/sfx_clear.wav" id="8_2y5yn"]
+[ext_resource type="AudioStream" uid="uid://dnllvocy2excx" path="res://audio/sfx_gameover.wav" id="9_oucy0"]
+[ext_resource type="AudioStream" uid="uid://bohcho2pra36x" path="res://audio/sfx_take_damage.wav" id="10_064dn"]
+
+[node name="AudioManager" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_8qd8g")
+bgm_menu = ExtResource("2_ujhup")
+bgm_stage = ExtResource("3_064dn")
+sfx_hover = ExtResource("4_ic5jq")
+sfx_click = ExtResource("5_if78k")
+sfx_bullet = ExtResource("6_8igv3")
+sfx_alien_dies = ExtResource("7_2y2jw")
+sfx_clear = ExtResource("8_2y5yn")
+sfx_gameover = ExtResource("9_oucy0")
+sfx_take_hit = ExtResource("10_064dn")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"Music"
+
+[node name="SFX1" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"SFX"
+
+[node name="SFX2" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"SFX"
+
+[node name="SFX3" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"SFX"
+
+[node name="SFX4" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+bus = &"SFX"

@@ -41,6 +41,7 @@ func _input(event):
 	elif Input.is_action_just_released("Shoot"):
 		if charging_bullet:
 			charging_bullet = false
+		Audio.sfx_shoot()
 		create_bullet(bullet_current_accumulation)
 		bullet_current_accumulation = 1.0
 		
