@@ -2,7 +2,7 @@ extends Area2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 var player: Player
-var damage: int = 1
+var damage: int = 5
 var speed : float = 100
 var velocity: Vector2
 signal bullet_hitted(bullet_damage: int)
@@ -14,6 +14,8 @@ func _ready() -> void:
 	
 func scale_bullet(heldlength: float) -> void:
 	self.scale *= heldlength
+	if damage >= 20:
+		charged = true
 	
 func set_player(current_player: Player ) -> void:
 	player = current_player
@@ -24,8 +26,11 @@ func set_player(current_player: Player ) -> void:
 func _physics_process(delta: float) -> void:
 	position += velocity * speed * delta
 
-	
+var charged = false
 func _on_area_entered(area: Area2D) -> void:
 	if area is Alien:
 		bullet_hitted.emit(damage)
-		print("Hitted!")
+		area.take_damage(damage)
+		#print("Hitted!")
+		if not charged:
+			queue_free()

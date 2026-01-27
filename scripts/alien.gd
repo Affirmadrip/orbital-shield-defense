@@ -13,10 +13,14 @@ enum AlienType { RED, PURPLE, GREY }
 @export var tex_purple: Texture2D
 @export var tex_grey: Texture2D
 
+signal destroyed(score_val: int)
+
+@export var score_value: int = 10
+
 var target_pos: Vector2 = Vector2.ZERO
 
 var speed: float = 120.0
-var damage_to_barrier: int = 5
+var damage_to_barrier: float = 5.0
 
 var max_hp: int = 1
 var hp: int = 1
@@ -44,21 +48,21 @@ func _apply_type_stats() -> void:
 		AlienType.RED:
 			sprite.texture = tex_red
 			speed = 140.0
-			damage_to_barrier = 3
+			damage_to_barrier = 1
 			max_hp = 10
 			sprite.scale = Vector2(3, 3)
 
 		AlienType.PURPLE:
 			sprite.texture = tex_purple
 			speed = 115.0
-			damage_to_barrier = 7
+			damage_to_barrier = 1.25
 			max_hp = 25
 			sprite.scale = Vector2(5, 5)
 
 		AlienType.GREY:
 			sprite.texture = tex_grey
 			speed = 95.0
-			damage_to_barrier = 15
+			damage_to_barrier = 1.5
 			max_hp = 60
 			sprite.scale = Vector2(8, 8)
 
@@ -67,4 +71,5 @@ func _apply_type_stats() -> void:
 func take_damage(dmg: int) -> void:
 	hp -= dmg
 	if hp <= 0:
+		destroyed.emit(score_value)
 		queue_free()
