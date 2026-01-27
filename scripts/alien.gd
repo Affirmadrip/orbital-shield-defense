@@ -71,5 +71,6 @@ func _apply_type_stats() -> void:
 func take_damage(dmg: int) -> void:
 	hp -= dmg
 	if hp <= 0:
+		Audio.sfx_alien_die()
 		destroyed.emit(score_value)
 		queue_free()

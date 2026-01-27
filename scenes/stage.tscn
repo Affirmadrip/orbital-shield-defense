@@ -226,8 +226,7 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 72
-text = "Stage 2 Clear
-Thanks For playing"
+text = "Stage 2 Clear"
 horizontal_alignment = 1
 
 [node name="PlayAgainButton" type="Button" parent="Clear stage 2/VBoxContainer"]

@@ -53,6 +53,7 @@ var stage_config = {
 
 func _ready() -> void:
 	randomize()
+	Audio.play_bgm_stage()
 	
 	# Make sure menus still work when the game is paused
 	if has_node("Clear stage 1"): get_node("Clear stage 1").process_mode = Node.PROCESS_MODE_ALWAYS
@@ -195,6 +196,8 @@ func _check_loss_condition() -> void:
 
 func _on_stage_clear() -> void:
 	is_stage_clear = true
+	Audio.stop_bgm()
+	Audio.sfx_stage_clear()
 	get_tree().paused = true
 	
 	var panel_name = "Clear stage " + str(current_stage)
@@ -205,6 +208,8 @@ func _on_stage_clear() -> void:
 
 func _game_over() -> void:
 	is_game_over = true
+	Audio.stop_bgm() 
+	Audio.sfx_game_over()
 	get_tree().paused = true
 	if has_node("GAME OVER"):
 		get_node("GAME OVER").visible = true
@@ -212,10 +217,11 @@ func _game_over() -> void:
 func damage_barrier(amount: float) -> void:
 	if not is_invulnerable:
 		barrier_hp = clamp(barrier_hp - amount, 0, barrier_max_hp)
+		Audio.sfx_takehit()
 		_update_hp_ui()
 		if barrier_hp <= 0:
 			_game_over()
-	elif invulnerable:
+	else:
 		is_invulnerable = false
 		barrier.modulate = original_color
 		reset_barrier()
