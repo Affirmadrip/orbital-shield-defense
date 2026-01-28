@@ -2,7 +2,6 @@ extends Node2D
 
 @export var alien_scene: PackedScene
 
-# UI Nodes
 @onready var planet: Sprite2D = $Planet
 @onready var barrier: Area2D = $Barrier
 @onready var aliens_container: Node2D = $Aliens
@@ -29,11 +28,10 @@ var spawn_queue: Array[int] = []
 var current_spawn_interval: float = 1.0
 var time_until_next_spawn: float = 0.0
 
-# Stage Configuration
 var stage_config = {
 	1: {
 		"duration": 60.0,
-		"target_score": 500,
+		"target_score": 350,
 		"aliens": {
 			Alien.AlienType.RED: 45,
 			Alien.AlienType.PURPLE: 10,
@@ -42,7 +40,7 @@ var stage_config = {
 	},
 	2: {
 		"duration": 85.0,
-		"target_score": 850,
+		"target_score": 750,
 		"aliens": {
 			Alien.AlienType.RED: 60,
 			Alien.AlienType.PURPLE: 15,
@@ -55,7 +53,6 @@ func _ready() -> void:
 	randomize()
 	Audio.play_bgm_stage()
 	
-	# Make sure menus still work when the game is paused
 	if has_node("Clear stage 1"): get_node("Clear stage 1").process_mode = Node.PROCESS_MODE_ALWAYS
 	if has_node("Clear stage 2"): get_node("Clear stage 2").process_mode = Node.PROCESS_MODE_ALWAYS
 	if has_node("GAME OVER"): get_node("GAME OVER").process_mode = Node.PROCESS_MODE_ALWAYS
@@ -73,18 +70,18 @@ func _ready() -> void:
 	reset_barrier()
 
 func start_stage(stage_num: int) -> void:
+	if stage_num > current_stage:
+		restore_hp_for_next_stage()
+
 	current_stage = stage_num
 	is_game_over = false
 	is_stage_clear = false
-	
-	# Clear existing aliens from previous stage
+
 	for child in aliens_container.get_children():
 		child.queue_free()
 	
-	# Get settings for this stage
 	var config = stage_config.get(current_stage, stage_config[2])
 	
-	# If stage is higher than 2, make it harder
 	if not stage_config.has(current_stage):
 		config = stage_config[2].duplicate(true)
 		var diff = current_stage - 2
@@ -101,7 +98,6 @@ func start_stage(stage_num: int) -> void:
 	
 	_create_enemy_list(config["aliens"])
 	
-	# Calculate how fast to spawn enemies
 	var spawn_duration = stage_duration * 1.20
 	if spawn_queue.size() > 0:
 		current_spawn_interval = spawn_duration / spawn_queue.size()
@@ -120,12 +116,10 @@ func _update_stage_ui() -> void:
 
 func _create_enemy_list(counts: Dictionary) -> void:
 	spawn_queue.clear()
-	# Add enemies to the list based on config
 	for type in counts:
 		var count = counts[type]
 		for i in range(count):
 			spawn_queue.append(type)
-	# Shuffle them so they come out in random order
 	spawn_queue.shuffle()
 
 func _process(delta: float) -> void:
@@ -135,7 +129,6 @@ func _process(delta: float) -> void:
 	stage_timer -= delta
 	_update_timer_ui()
 	
-	# If time runs out, check result (Win or Loss based on score)
 	if stage_timer <= 0:
 		_check_loss_condition()
 		return
@@ -160,7 +153,6 @@ func _spawn_alien(type: int) -> void:
 	a.destroyed.connect(_on_alien_destroyed)
 	
 	var center := planet.global_position
-	# Spawn randomly outside the screen
 	var view := get_viewport().get_visible_rect()
 	var left := view.position.x
 	var top := view.position.y
@@ -184,14 +176,10 @@ func _on_alien_destroyed(val: int) -> void:
 	_update_stage_ui()
 
 func _check_loss_condition() -> void:
-	# Called when timer runs out (stage_timer <= 0)
 	
-	# Check if we met the score target
 	if score >= target_score_for_stage:
-		# Success
 		_on_stage_clear()
 	else:
-		# Failed to reach target score
 		_game_over()
 
 func _on_stage_clear() -> void:
@@ -204,7 +192,7 @@ func _on_stage_clear() -> void:
 	if has_node(panel_name):
 		get_node(panel_name).visible = true
 	else:
-		print("Stage Cleared! (No UI for this stage yet)")
+		print("Stage Cleared!")
 
 func _game_over() -> void:
 	is_game_over = true
@@ -242,10 +230,8 @@ func _on_barrier_area_entered(area: Area2D) -> void:
 		damage_barrier(area.damage_to_barrier)
 		area.queue_free()
 
-# Button Listeners
 func _on_next_stage_button_pressed() -> void:
 	get_tree().paused = false
-	# Hide old panels
 	for child in get_children():
 		if child is Panel:
 			child.visible = false
@@ -259,6 +245,11 @@ func _on_retry_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
+func restore_hp_for_next_stage():
+	var restore_amount := int(ceil(barrier_hp * 0.25))
+	barrier_hp = clamp(barrier_hp + restore_amount, 0, barrier_max_hp)
+	_update_hp_ui()
+	
 var is_invulnerable = false
 var original_color 
 func reset_barrier():
