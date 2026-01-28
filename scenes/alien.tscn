@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpieuoc22whp5"]
+[gd_scene load_steps=5 format=3 uid="uid://cpieuoc22whp5"]
 
 [ext_resource type="Script" uid="uid://bohfi0a7o7v7v" path="res://scripts/alien.gd" id="1_u8rjw"]
 [ext_resource type="Texture2D" uid="uid://b3ukjsv84v1fn" path="res://art/enemy_ship.png" id="2_vxp04"]
 [ext_resource type="Texture2D" uid="uid://bx8f1utkgg01g" path="res://art/enemy_ship_2.png" id="3_kufd8"]
-[ext_resource type="Texture2D" uid="uid://bh0qykjdvdpq7" path="res://art/enemy_ship_3.png" id="4_g58bj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6ka4i"]
 radius = 39.26
@@ -14,7 +13,6 @@ collision_mask = 3
 script = ExtResource("1_u8rjw")
 tex_red = ExtResource("2_vxp04")
 tex_purple = ExtResource("3_kufd8")
-tex_grey = ExtResource("4_g58bj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_vxp04")
