@@ -14,6 +14,10 @@ config/name="Astral Impact"
 run/main_scene="uid://3i0rnjrn48xk"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[autoload]
+
+Audio="*res://scenes/audio_manager.tscn"
+
 [display]
 
 window/stretch/mode="viewport"

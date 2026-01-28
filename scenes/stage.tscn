@@ -98,6 +98,7 @@ offset_left = 1000.0
 offset_top = 18.0
 offset_right = 1130.0
 offset_bottom = 41.0
+theme_override_colors/font_color = Color(0.7693779, 0.7231006, 0.24396777, 1)
 theme_override_fonts/font = SubResource("FontVariation_spacing")
 theme_override_font_sizes/font_size = 28
 text = "Stage 1"
@@ -108,6 +109,7 @@ offset_left = 912.0
 offset_top = 56.0
 offset_right = 1138.0
 offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.9624892, 0.9431332, 0.7106951, 1)
 theme_override_fonts/font = SubResource("FontVariation_spacing")
 theme_override_font_sizes/font_size = 20
 text = "Score 500 / 500"
@@ -142,22 +144,26 @@ theme_override_constants/separation = 20
 [node name="PauseLabel" type="Label" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.4408885, 0.58088076, 1)
 theme_override_font_sizes/font_size = 72
 text = "PAUSED"
 horizontal_alignment = 1
 
 [node name="ResumeButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.77254903, 0.654902, 1)
 theme_override_font_sizes/font_size = 32
 text = "RESUME"
 
 [node name="RestartButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8140848, 0.2838423, 0.3302914, 1)
 theme_override_font_sizes/font_size = 32
 text = "RESTART"
 
 [node name="MainmenuButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.74083734, 0.42582315, 0.30298185, 1)
 theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
@@ -188,17 +194,20 @@ theme_override_constants/separation = 20
 [node name="Score" type="Label" parent="Clear stage 1/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7693779, 0.7231006, 0.24396777, 1)
 theme_override_font_sizes/font_size = 72
 text = "Stage 1 Clear"
 horizontal_alignment = 1
 
 [node name="NextStageButton" type="Button" parent="Clear stage 1/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(6.2569975e-06, 0.771512, 0.6563914, 1)
 theme_override_font_sizes/font_size = 32
 text = "NEXT STAGE"
 
 [node name="MainmenuButton" type="Button" parent="Clear stage 1/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.74083734, 0.42582315, 0.30298185, 1)
 theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
@@ -225,18 +234,20 @@ theme_override_constants/separation = 20
 [node name="Score" type="Label" parent="Clear stage 2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7693779, 0.7231006, 0.24396777, 1)
 theme_override_font_sizes/font_size = 72
-text = "Stage 2 Clear
-Thanks For playing"
+text = "Stage 2 Clear"
 horizontal_alignment = 1
 
 [node name="PlayAgainButton" type="Button" parent="Clear stage 2/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.77254903, 0.654902, 1)
 theme_override_font_sizes/font_size = 32
 text = "PLAY AGAIN"
 
 [node name="MainmenuButton" type="Button" parent="Clear stage 2/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.74083734, 0.42582315, 0.30298185, 1)
 theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
@@ -263,17 +274,22 @@ theme_override_constants/separation = 20
 [node name="Score" type="Label" parent="GAME OVER/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.9527013, 0.17112422, 0.20499799, 1)
+theme_override_colors/font_outline_color = Color(0.019607844, 0, 0, 1)
+theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 72
 text = "GAME OVER"
 horizontal_alignment = 1
 
 [node name="RetryButton" type="Button" parent="GAME OVER/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.77254903, 0.654902, 1)
 theme_override_font_sizes/font_size = 32
 text = "RETRY"
 
 [node name="MainmenuButton" type="Button" parent="GAME OVER/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.74083734, 0.42582315, 0.30298185, 1)
 theme_override_font_sizes/font_size = 32
 text = "MAIN MENU"
 
